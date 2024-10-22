@@ -36,7 +36,7 @@ object ScalaPlayground {
 
 
     class Store[-T <: Apple] {
-      def sell[T](fruit: T): Unit = println(s"sell $fruit")
+      def sell[D](fruit: D): Unit = println(s"sell $fruit")
     }
 
     val store: Store[GalaApple] = new Store[Apple]
