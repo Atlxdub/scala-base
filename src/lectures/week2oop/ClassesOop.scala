@@ -34,14 +34,16 @@ object ClassesOop {
   }
   addition.perfomOperation(5)*/
 
-  //Трейты
+  //Трейты позволяют "приделать" метод к классу
   trait Saver{
     def save (value: Int): Unit = println(s"saved value is $value")
   }
+
+
   //Т.к. класс не наследует ни от какого другого класса, используем extends, a не with
   // with используется для трейта, который необходимо добавить в наследуемый класс
   // У которого прописан суперкласс
-  class Additon extends Saver {
+  /*class Additon extends Saver {
     private def addTwo (num: Int) = num + 2
 
     def performOperation(num: Int): Unit = {
@@ -51,6 +53,8 @@ object ClassesOop {
     val operation = new Addition
 
     operation.perfomOperation(4)
-  }
+  }*/
+
+
 }
 

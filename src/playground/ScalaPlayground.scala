@@ -23,10 +23,35 @@ object ScalaPlayground {
     println(Int.MinValue)
     println(Int.MinValue - 1 )
 
-  }
+    trait Fruit {
 
-  def choose[T](index: Int, items: List[T]): T = {
-    items(index)
+      val code: String
+
+      override def toString: String = s"$code"
+    }
+
+    class Apple(val code: String) extends Fruit
+    class GalaApple(code: String) extends Apple(code)
+    class GreenApple(code: String) extends Apple(code)
+
+
+    class Store[-T <: Apple] {
+      def sell[T](fruit: T): Unit = println(s"sell $fruit")
+    }
+
+    val store: Store[GalaApple] = new Store[Apple]
+
+    store.sell(new Apple("Apple-4135"))
+    store.sell(new GalaApple("GalaApple-4133"))
+    store.sell(new GreenApple("GreenApple-3344"))
+
+    /*
+    предполагаемый результат:
+      sell Apple-4135
+      sell GalaApple-4133
+      sell GreenApple-3344
+    */
+
   }
 
   /*trait trTest() {
@@ -45,7 +70,6 @@ object ScalaPlayground {
  class TestButton extends Button {
     override def click(): String = s"test ${super.click()}"
   }*/
-
 }
   //Рекурсия со степенью двойки
   /*def powerOfTwo(n: Int): BigInt = {
@@ -113,3 +137,4 @@ object ScalaPlayground {
       this
     }
   }*/
+
