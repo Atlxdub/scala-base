@@ -1,5 +1,6 @@
 package src.playground
 
+import java.util.jar.Attributes.Name
 import scala.annotation.tailrec
 import scala.jdk.Accumulator
 import scala.language.postfixOps
@@ -13,6 +14,11 @@ object ScalaPlayground {
     println(dab)
 */
 
+    class Person(val name: String) {
+      def unary_+ : String = {
+        s"${name} dadada"
+      }
+    }
     // наследование классов
     /*case class Restaurant(name: String = "Unique Cafe" ) {
       def info(): Unit = println(s"This is $name")
@@ -20,40 +26,13 @@ object ScalaPlayground {
     }
 
     class Cafe () extends Restaurant // ошибка: Unspecified value parameters: name: String*/
-    println(Int.MinValue)
-    println(Int.MinValue - 1 )
+    val bob = new Person("Bob")
+    val alice = new Person("Alice")
+    println((+bob).name) // Bob NoSurname
+    println((+alice).name) // Alice NoSurname
 
-    trait Fruit {
-
-      val code: String
-
-      override def toString: String = s"$code"
-    }
-
-    class Apple(val code: String) extends Fruit
-    class GalaApple(code: String) extends Apple(code)
-    class GreenApple(code: String) extends Apple(code)
-
-
-    class Store[-T <: Apple] {
-      def sell[D](fruit: D): Unit = println(s"sell $fruit")
-    }
-
-    val store: Store[GalaApple] = new Store[Apple]
-
-    store.sell(new Apple("Apple-4135"))
-    store.sell(new GalaApple("GalaApple-4133"))
-    store.sell(new GreenApple("GreenApple-3344"))
-
-    /*
-    предполагаемый результат:
-      sell Apple-4135
-      sell GalaApple-4133
-      sell GreenApple-3344
-    */
 
   }
-
   /*trait trTest() {
     def empty(): Unit = s"button -test- has been clicked"
   }
@@ -71,7 +50,12 @@ object ScalaPlayground {
     override def click(): String = s"test ${super.click()}"
   }*/
 }
-  //Рекурсия со степенью двойки
+
+
+
+
+
+//Рекурсия со степенью двойки
   /*def powerOfTwo(n: Int): BigInt = {
     @tailrec
     def loop(x: Int, accumulator: BigInt = 1): BigInt = {
@@ -137,4 +121,6 @@ object ScalaPlayground {
       this
     }
   }*/
+
+
 

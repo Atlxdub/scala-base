@@ -1,14 +1,19 @@
 package src.lectures.week2oop
-
+import scala.language.postfixOps
+// Синтаксический сахар позволяет визуально легче воспринимать код
 object SyntacticSugar {
+  def main(args: Array[String]): Unit = {
+    val bob = new Person("Bob", "Developer")
 
-  // Синтаксический сахар позволяет визуально легче воспринимать код
-  // Пример инфиксной нотации (для методов с одним параметром)
+  }
 
-  class Person(val name: String, jobTitle: String) {
-    def worksAs(position: String): Boolean = position == jobTitle
+  class Person(name: String, jobTitle: String) {
+    def apply(company: String): Unit = println(s"$name works as a $jobTitle in $company")
   }
 
   val bob = new Person("Bob", "Developer")
-
+  bob ("Samsung")
+  bob apply "Samsung"
+  bob.apply("Samsung")
+  bob("Samsung")
 }
