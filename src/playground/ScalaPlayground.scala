@@ -3,7 +3,7 @@ package src.playground
 import java.util.jar.Attributes.Name
 import scala.annotation.tailrec
 import scala.jdk.Accumulator
-import scala.language.postfixOps
+
 
 object ScalaPlayground {
   def main(args: Array[String]): Unit = {
@@ -13,11 +13,100 @@ object ScalaPlayground {
     val dab = input.split("\\s+").reverse.mkString(" ").trim
     println(dab)
 */
+    //Практика
+    // 1
+    /*
+    abstract class Account
+    case class PersonalAccount() extends Account
+    case class BusinessAccount() extends Account
 
-    class Person(val name: String) {
-      def unary_+ : String = {
-        s"${name} dadada"
+    abstract class Bank
+    case class HeadOffice() extends Bank {
+      def openAccount(accountType: String): Account = {
+        if (accountType == "business") BusinessAccount()
+        else PersonalAccount()
       }
+    }
+
+    case class Branch() extends Bank {
+      def openAccount(accountType: String): Account = {
+        if (accountType == "business") BusinessAccount()
+        else PersonalAccount()
+      }
+    }
+
+    val branch = Branch()
+    val account = branch.openAccount("business")
+
+    println(account)*/
+    // 2
+
+    sealed trait AccountType
+    class FreeAccount extends AccountType
+    class PaidAccount extends AccountType
+
+    sealed trait SubscriptionStatus
+
+    class Subscribed extends SubscriptionStatus
+    class Unsubscribed extends SubscriptionStatus
+    class SubscriptionMissingData extends SubscriptionStatus
+
+    class Settings {
+      case class AccountSettings(
+                                  email: String,
+                                  password: String,
+                                  picture: String)
+
+      case class SubscriptionSettings(
+                                       paymentMethod: String,
+                                       notifications: String,
+                                       expiration: String)
+    }
+
+    class Unsubscriber {
+      def unsubscribe(accountId: Int): Unit = println(s"$accountId unsubscribed")
+    }
+
+    class Account(
+                   accountId: Int,
+                   accountType: AccountType,
+                   settings: Settings.AccountSettings) {
+
+      def info(): Unit = println(s"Account Type: $accountType")
+
+      def subscribe(accountId: Int): Unit = println(s"$accountId ${settings.email} subscribed")
+
+      def performAction(): Unit
+    }
+
+    class BaseAccount extends Account(
+      accountId: Int,
+      accountType: AccountType,
+      settings: Settings.AccountSettings) {
+
+      def performAction(): Unit = {
+        subscribe(this.accountId)
+      }
+    }
+
+    class PrivilegedAccount extends Account(
+      accountId: Int,
+      accountType: AccountType,
+      settings: Settings.AccountSettings,
+      subscriptionStatus: SubscriptionStatus) {
+
+      override def performAction(): Unit = {
+        unsubscribe(this.accountId)
+      }
+    }
+
+  }
+}
+//Переопределение унарного метода (_+)
+  /*
+    class Person(val name: String) {
+
+      def unary_+ : Person = Person(s"$name NoSurname")
     }
     // наследование классов
     /*case class Restaurant(name: String = "Unique Cafe" ) {
@@ -30,9 +119,7 @@ object ScalaPlayground {
     val alice = new Person("Alice")
     println((+bob).name) // Bob NoSurname
     println((+alice).name) // Alice NoSurname
-
-
-  }
+*/
   /*trait trTest() {
     def empty(): Unit = s"button -test- has been clicked"
   }
@@ -49,12 +136,6 @@ object ScalaPlayground {
  class TestButton extends Button {
     override def click(): String = s"test ${super.click()}"
   }*/
-}
-
-
-
-
-
 //Рекурсия со степенью двойки
   /*def powerOfTwo(n: Int): BigInt = {
     @tailrec
@@ -64,8 +145,7 @@ object ScalaPlayground {
     }
     loop(n)
   }*/
-
-  // сумматор x+y n-раз и вывод столько раз, сколько символов в результате Int
+// сумматор x+y n-раз и вывод столько раз, сколько символов в результате Int
   /*def sumRepeat2(x: Int, y: Int, n: Int): Unit = {
     @tailrec
     def loop(t: Int = 0, g: Int, i: Int): Int = {
@@ -88,7 +168,6 @@ object ScalaPlayground {
     }
     loop(x, y, n)
   }*/
-
   // Базовая работа с классами
   /*class Employee(val name: String, var salary: Double) {
     def this() = this("Empty", 0)
@@ -121,6 +200,5 @@ object ScalaPlayground {
       this
     }
   }*/
-
 
 
